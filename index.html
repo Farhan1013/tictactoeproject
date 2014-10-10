@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app="TTTApp">
+<head>
+    <title>TTT project 1</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js">
+    </script>
+  <script src="main.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>TIC TAC TOE </h1>
+    <div ng-controller="TTTController">
+        <p>TTT Reference: Step 1</p>
+        CLICK COUNTER: {{movecounter}}
+        
+        <div class="theBox" >
+            <div ng-repeat="currentCell in cellList">
+                <div class="allCellsAlways" ng-click="playerPicks(currentCell)"
+                ng-class="{xclass: currentCell.status=='X', oclass: currentCell.status =='O'}">
+                Cell Contents: {{currentCell.status}}
+            </div>
+        </div>
+    </div>
+    <br>
+    {{testString}}
+    <p></p>
+    <button ng-click="testJS()">TEST BUTTON</button>
+</div>
+
+</body>
+</html>

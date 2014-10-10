@@ -1,0 +1,48 @@
+.theBox {
+	width: 468px;
+	height: 468px;
+    border-style: dashed;
+    border-color: gold;
+    background-color: orange;
+    margin-left: 400px;
+}
+
+.allCellsAlways {
+    width: 150px;
+	height: 150px;
+	display: inline-block;
+    float: right;
+    margin: 0px ;
+    padding: 0px ;
+    border-style: solid;
+    border-color: purple;
+}
+
+.xclass {
+	background-color: red ;
+    background: url("images/lakers1.png");
+    background-size: 150px 150px;
+    
+
+}
+
+.oclass {
+	background-color: blue ;
+    background: url("images/lakers2.jpg");
+    background-size: 150px 150px;
+}
+
+.blankclass {
+	background-color: gray ;
+}
+
+body {
+    height: 80%;
+    background: purple;
+    text-align: center;
+}
+
+h1 {
+    color: gold;
+    text-align: center;
+}
