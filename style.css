@@ -1,35 +1,37 @@
 .theBox {
-	width: 468px;
-	height: 468px;
-    border-style: dashed;
+	width: 580px;
+	height: 580px;
+    border-style: solid;
     border-color: gold;
-    background-color: orange;
-    margin-left: 400px;
+    background: rgb(239, 209, 28);
+    margin-left: 350px;
+    opacity: .94;
+
 }
 
 .allCellsAlways {
-    width: 150px;
-	height: 150px;
+    width: 187px;
+	height: 187px;
 	display: inline-block;
     float: right;
     margin: 0px ;
     padding: 0px ;
     border-style: solid;
-    border-color: purple;
+    border-color: rgb(240, 48, 82);;
 }
 
 .xclass {
-	background-color: red ;
-    background: url("images/lakers1.png");
-    background-size: 150px 150px;
+    background: url("images/Scratchy2.png");
+    background-size: 189px 189px;
     
 
 }
 
 .oclass {
 	background-color: blue ;
-    background: url("images/lakers2.jpg");
-    background-size: 150px 150px;
+    background: url(images/Itchy2.png);
+    background-size: 191px 191px;
+    transition: width 2s;
 }
 
 .blankclass {
@@ -38,11 +40,14 @@
 
 body {
     height: 80%;
-    background: purple;
+    background: url(images/dibujos-simpsons.jpg);
     text-align: center;
+     background-position: center;
+
 }
 
 h1 {
-    color: gold;
+    color: rgb(239, 47, 79);
     text-align: center;
+    font-family: 'Monoton', cursive;
 }

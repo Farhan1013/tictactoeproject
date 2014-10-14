@@ -4,20 +4,25 @@
     <title>TTT project 1</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js">
     </script>
-  <script src="main.js"></script>
-  <link rel="stylesheet" href="style.css">
+    <script src="main.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link href='http://fonts.googleapis.com/css?family=Monoton' rel='stylesheet' type='text/css'>
 </head>
+
 <body>
-    <h1>TIC TAC TOE </h1>
+    <audio controls autoplay>
+  <source src="AUDIO/Simpsons - Itchy & Scratchy Theme copy.mp3" type="audio/mp3">
+</audio>
+    <h1>ITCHY VS. SCRATHCY</h1>
     <div ng-controller="TTTController">
         <p>TTT Reference: Step 1</p>
-        CLICK COUNTER: {{movecounter}}
+       {{movecounter}}
         
         <div class="theBox" >
             <div ng-repeat="currentCell in cellList">
                 <div class="allCellsAlways" ng-click="playerPicks(currentCell)"
                 ng-class="{xclass: currentCell.status=='X', oclass: currentCell.status =='O'}">
-                Cell Contents: {{currentCell.status}}
+                {{currentCell.status}}
             </div>
         </div>
     </div>
