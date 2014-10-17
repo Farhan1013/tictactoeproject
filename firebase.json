@@ -1,0 +1,9 @@
+{
+  "firebase": "itchyvsscratchy",
+  "public": ".",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}

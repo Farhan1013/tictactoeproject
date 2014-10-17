@@ -1,351 +1,109 @@
-var TTTApp = angular.module('TTTApp', []);
+var TTTApp = angular.module('TTTApp', ["firbase"]);
 
 TTTApp.controller('TTTController', function ($scope) {
 
-  $scope.testString = "Angular source, App, and Controller present" ;
+  $scope.remoteGameContainer =
+  $firebase(new Firebase("https://itchyvsscratchy.firebaseio.com/"))
 
-  $scope.cellList = [
-  {status: "0"}, 
-  {status: "1"}, 
-  {status: "2"}, 
-  {status: "3"}, 
-  {status: "4"}, 
-  {status: "5"}, 
-  {status: "6"}, 
-  {status: "7"}, 
-  {status: "8"}
-  ]  ;
+  $scope.testString = "Angular sourceAppand Controller present" ;
 
-  $scope.movecounter = 0 ;
+    $scope.cellList = [
+      {status: "0"}, 
+      {status: "1"}, 
+      {status: "2"}, 
+      {status: "3"}, 
+      {status: "4"}, 
+      {status: "5"}, 
+      {status: "6"}, 
+      {status: "7"}, 
+      {status: "8"}
+      ];
 
-  $scope.gameEnd= false; //we are setting to flase because game has just begun and nobody has yet won
 
+
+
+  $scope.movecounter = 0; 
+  $scope.gameEnd= false;                     
+  $scope.xWinner= false;
+  $scope.oWinner= false;
+
+
+  //SPECIAL SAUCE HERE
+  $scope.gameContainer = {
+    gameContainerArray: $scope.gameContainer,
+    moveCount: $scope.movecounter
+  };
+
+  //ANGULAR STUFF HERE
+  $scope.remoteGameContainer.$blind($scope, "gameContainer");
+
+  $scope.$watch('gameContainer', function() {
+    console.log('gameContainer changed!');
+  });
+
+  //FUNCTIONS START HERE ------>
 
   $scope.playerPicks = function(thisCell) {
-    if($scope.gameEnd === false) {
-    if(thisCell.status != "X" && thisCell.status != "O") { //if the cell is not X and cell is not O
-    $scope.movecounter = $scope.movecounter + 1 ;     //move counter is will go up by 1
-    // if ( thisCell.status == "number");
-    console.log("Cell was: " + thisCell.status) ; //will log onto console the cell status
-    if (($scope.movecounter % 2) == 1) { //this is saying if movecounter is odd, it is player X
+    if (thisCell.status == 'X' && thisCell.status == 'O') {
+      return;
+    $scope.gameContainer.moveCount ++; 
+    console.log("Cell was: " + thisCell.status);
+  }
+    if (($scope.movecounter % 2) == 0) {
       thisCell.status = "X" ;  
     } else {
-      thisCell.status = "O" ; // else it is player O
+      thisCell.status = "O" ; 
     } 
+    $scope.movecounter++;
+    console.log("Cell is now: " + thisCell.status);
 
-  console.log("Cell is now: " + thisCell.status);
-
-//win logic for X
-      if($scope.cellList[0].status == "X" &&
-        $scope.cellList[1].status == "X" &&
-        $scope.cellList[2].status == "X") {
-        window.alert("player win!");
-        $scope.gameEnd = true; // if the 
+    $scope.checkWinner($scope.gameContainer, "X");
+        $scope.checkWinner($scope.gameContainer, "O");
+  };
 
 
+$scope.checkWinner = function (list,xo) {
+  for (var i = 0; i < 3; i++) {
+      //this will do the rows
+      if (list[i*3].status === list[i*3+1].status &&
+      list[i*3+1].status === list[i*3+2].status &&
+       list[i*3].status=== xo) {
+        console.log("winner");
+        if (xo == "X") 
+          $scope.xWinner = true;
+        else
+          $scope.oWinner = true;
+      } 
+      //this will do the columns
+      if (list[i].status === list[i+3].status &&
+      list[i+3].status === list[i+6].status &&
+       list[i].status== xo) {
+       if (xo == "X") 
+          $scope.xWinner = true;
+        else
+          $scope.oWinner = true;
+      }
   }
-    
-    if($scope.cellList[3].status == "X" &&
-        $scope.cellList[4].status == "X" &&
-        $scope.cellList[5].status == "X") {
-        window.alert("player 1 win!");
-    }
-
-  if($scope.cellList[3].status == "X" &&
-        $scope.cellList[4].status == "X" &&
-        $scope.cellList[5].status == "X") {
-        window.alert("player 1 win!");
-    }
-
-    if($scope.cellList[6].status == "X" &&
-        $scope.cellList[7].status == "X" &&
-        $scope.cellList[8].status == "X") {
-        window.alert("player 1 win!");
-    }
-
-        if($scope.cellList[6].status == "X" &&
-        $scope.cellList[7].status == "X" &&
-        $scope.cellList[8].status == "X") {
-        window.alert("player 1 win!");
-    }
-
-        if($scope.cellList[2].status == "X" &&
-        $scope.cellList[5].status == "X" &&
-        $scope.cellList[8].status == "X") {
-        window.alert("player 1 win!");
-    }
-
-        if($scope.cellList[1].status == "X" &&
-        $scope.cellList[4].status == "X" &&
-        $scope.cellList[7].status == "X") {
-        window.alert("player 1 win!");
-    }
-
-        if($scope.cellList[0].status == "X" &&
-        $scope.cellList[3].status == "X" &&
-        $scope.cellList[6].status == "X") {
-        window.alert("player 1 win!");
-    }
-
-        if($scope.cellList[0].status == "X" &&
-        $scope.cellList[4].status == "X" &&
-        $scope.cellList[8].status == "X") {
-        window.alert("player 1 win!");
-    }
-
-    if($scope.cellList[2].status == "X" &&
-        $scope.cellList[4].status == "X" &&
-        $scope.cellList[6].status == "X") {
-        window.alert("player 1 win!");
-    }
-//below id logic if O wins
-    if($scope.cellList[0].status == "O" &&
-        $scope.cellList[1].status == "O" &&
-        $scope.cellList[2].status == "O") {
-        window.alert("player 2 win!");
-  }
-    
-    if($scope.cellList[3].status == "O" &&
-        $scope.cellList[4].status == "O" &&
-        $scope.cellList[5].status == "O") {
-        window.alert("player 2 win!");
-    }
-
-  if($scope.cellList[3].status == "O" &&
-        $scope.cellList[4].status == "O" &&
-        $scope.cellList[5].status == "O") {
-        window.alert("player 2 win!");
-    }
-
-    if($scope.cellList[6].status == "O" &&
-        $scope.cellList[7].status == "O" &&
-        $scope.cellList[8].status == "O") {
-        window.alert("player 2 win!");
-    }
-
-        if($scope.cellList[6].status == "O" &&
-        $scope.cellList[7].status == "O" &&
-        $scope.cellList[8].status == "O") {
-        window.alert("player2  win!");
-    }
-
-        if($scope.cellList[2].status == "O" &&
-        $scope.cellList[5].status == "O" &&
-        $scope.cellList[8].status == "O") {
-        window.alert("player 2 win!");
-    }
-
-        if($scope.cellList[1].status == "O" &&
-        $scope.cellList[4].status == "O" &&
-        $scope.cellList[7].status == "O") {
-        window.alert("player 2 win!");
-    }
-
-        if($scope.cellList[0].status == "O" &&
-        $scope.cellList[3].status == "O" &&
-        $scope.cellList[6].status == "O") {
-        window.alert("player 2 wins!");
-    }
-        if($scope.cellList[0].status == "O" &&
-        $scope.cellList[4].status == "O" &&
-        $scope.cellList[8].status == "O") {
-        window.alert("player 2 wins!");
-    }
-
-    if($scope.cellList[2].status == "O" &&
-        $scope.cellList[4].status == "O" &&
-        $scope.cellList[6].status == "O") {
-        window.alert("player 2 win!");
-    }
-//below is tie logic
-//   if($scope.cellList[0].status == "X" &&
-//         $scope.cellList[1].status == "O" &&
-//         $scope.cellList[2].status == "X" &&
-//         $scope.cellList[3].status == "O" &&
-//         $scope.cellList[4].status == "O" &&
-//         $scope.cellList[5].status == "X" &&
-//         $scope.cellList[6].status == "X" &&
-//         $scope.cellList[7].status == "X" &&
-//         $scope.cellList[8].status == "O") {
-//         window.alert("tie game!");
-//     }
-//       if($scope.cellList[0].status == "X" &&
-//         $scope.cellList[1].status == "O" &&
-//         $scope.cellList[2].status == "O" &&
-//         $scope.cellList[3].status == "O" &&
-//         $scope.cellList[4].status == "X" &&
-//         $scope.cellList[5].status == "X" &&
-//         $scope.cellList[6].status == "X" &&
-//         $scope.cellList[7].status == "X" &&
-//         $scope.cellList[8].status == "O") {
-//         window.alert("tie game!");
-// }
-
-// if($scope.cellList[0].status == "O" &&
-//         $scope.cellList[1].status == "X" &&
-//         $scope.cellList[2].status == "X" &&
-//         $scope.cellList[3].status == "X" &&
-//         $scope.cellList[4].status == "O" &&
-//         $scope.cellList[5].status == "O" &&
-//         $scope.cellList[6].status == "X" &&
-//         $scope.cellList[7].status == "O" &&
-//         $scope.cellList[8].status == "X") {
-//         window.alert("tie game!");
-// }
-
-// if($scope.cellList[0].status == "O" &&
-//         $scope.cellList[1].status == "X" &&
-//         $scope.cellList[2].status == "O" &&
-//         $scope.cellList[3].status == "X" &&
-//         $scope.cellList[4].status == "X" &&
-//         $scope.cellList[5].status == "O" &&
-//         $scope.cellList[6].status == "X" &&
-//         $scope.cellList[7].status == "O" &&
-//         $scope.cellList[8].status == "X") {
-//         window.alert("tie game!");
-// }
-
-// if($scope.cellList[0].status == "O" &&
-//         $scope.cellList[1].status == "O" &&
-//         $scope.cellList[2].status == "X" &&
-//         $scope.cellList[3].status == "X" &&
-//         $scope.cellList[4].status == "X" &&
-//         $scope.cellList[5].status == "O" &&
-//         $scope.cellList[6].status == "O" &&
-//         $scope.cellList[7].status == "X" &&
-//         $scope.cellList[8].status == "X") {
-//         window.alert("tie game!");
-// }
-
-// if($scope.cellList[0].status == "X" &&
-//         $scope.cellList[1].status == "O" &&
-//         $scope.cellList[2].status == "X" &&
-//         $scope.cellList[3].status == "X" &&
-//         $scope.cellList[4].status == "O" &&
-//         $scope.cellList[5].status == "O" &&
-//         $scope.cellList[6].status == "O" &&
-//         $scope.cellList[7].status == "X" &&
-//         $scope.cellList[8].status == "X") {
-//         window.alert("tie game!");
-// }
-
-// if($scope.cellList[0].status == "X" &&
-//         $scope.cellList[1].status == "X" &&
-//         $scope.cellList[2].status == "O" &&
-//         $scope.cellList[3].status == "O" &&
-//         $scope.cellList[4].status == "O" &&
-//         $scope.cellList[5].status == "X" &&
-//         $scope.cellList[6].status == "X" &&
-//         $scope.cellList[7].status == "O" &&
-//         $scope.cellList[8].status == "X") {
-//         window.alert("tie game!");
-// }
-//         if($scope.cellList[0].status == "O" &&
-//         $scope.cellList[1].status == "X" &&
-//         $scope.cellList[2].status == "O" &&
-//         $scope.cellList[3].status == "X" &&
-//         $scope.cellList[4].status == "O" &&
-//         $scope.cellList[5].status == "X" &&
-//         $scope.cellList[6].status == "X" &&
-//         $scope.cellList[7].status == "O" &&
-//         $scope.cellList[8].status == "X") {
-//         window.alert("tie game!");
-// }
-
-//        if($scope.cellList[0].status == "O" &&
-//         $scope.cellList[1].status == "X" &&
-//         $scope.cellList[2].status == "X" &&
-//         $scope.cellList[3].status == "X" &&
-//         $scope.cellList[4].status == "O" &&
-//         $scope.cellList[5].status == "O" &&
-//         $scope.cellList[6].status == "O" &&
-//         $scope.cellList[7].status == "X" &&
-//         $scope.cellList[8].status == "X") {
-//         window.alert("tie game!");
-// }
-
-//     if($scope.cellList[0].status == "O" &&
-//         $scope.cellList[1].status == "X" &&
-//         $scope.cellList[2].status == "X" &&
-//         $scope.cellList[3].status == "X" &&
-//         $scope.cellList[4].status == "O" &&
-//         $scope.cellList[5].status == "O" &&
-//         $scope.cellList[6].status == "O" &&
-//         $scope.cellList[7].status == "X" &&
-//         $scope.cellList[8].status == "X") {
-//         window.alert("tie game!");
-// }
-
-//     if($scope.cellList[0].status == "X" &&
-//         $scope.cellList[1].status == "X" &&
-//         $scope.cellList[2].status == "O" &&
-//         $scope.cellList[3].status == "O" &&
-//         $scope.cellList[4].status == "O" &&
-//         $scope.cellList[5].status == "X" &&
-//         $scope.cellList[6].status == "X" &&
-//         $scope.cellList[7].status == "X" &&
-//         $scope.cellList[8].status == "O") {
-//         window.alert("tie game!");
-// }
-
-//    if($scope.cellList[0].status == "X" &&
-//         $scope.cellList[1].status == "O" &&
-//         $scope.cellList[2].status == "X" &&
-//         $scope.cellList[3].status == "X" &&
-//         $scope.cellList[4].status == "O" &&
-//         $scope.cellList[5].status == "X" &&
-//         $scope.cellList[6].status == "O" &&
-//         $scope.cellList[7].status == "X" &&
-//         $scope.cellList[8].status == "O") {
-//         window.alert("tie game!");
-// }
-
-//  if($scope.cellList[0].status == "O" &&
-//         $scope.cellList[1].status == "X" &&
-//         $scope.cellList[2].status == "X" &&
-//         $scope.cellList[3].status == "X" &&
-//         $scope.cellList[4].status == "X" &&
-//         $scope.cellList[5].status == "O" &&
-//         $scope.cellList[6].status == "O" &&
-//         $scope.cellList[7].status == "O" &&
-//         $scope.cellList[8].status == "X") {
-//         window.alert("tie game!");
-// }
-
-if ($scope.movecounter===9 && $scope.gameEnd===false) { //conditional to check the number of moves in the game 
-                                                        //if it is equal to 9 and  the game has not ended
-                                                        //the game will then be ended as a tie
+    if ($scope.movecounter===9 && $scope.gameEnd===false) {
     $scope.gameEnd=true;
     window.alert("tie game");
-
 }
+};
 
 $scope.testJS= function() {
-$scope.gameEnd=false;
- $scope.cellList = [
-  {status: "0"}, 
-  {status: "1"}, 
-  {status: "2"}, 
-  {status: "3"}, 
-  {status: "4"}, 
-  {status: "5"}, 
-  {status: "6"}, 
-  {status: "7"}, 
-  {status: "8"}
-  ]  ;
-
-}
-
-}
-
-
-
-
-
-}
-
-  } ;
-
+  // $scope.gameEnd=false;
+  $scope.gameContainer = [
+    {status: "0"}, 
+    {status: "1"}, 
+    {status: "2"}, 
+    {status: "3"}, 
+    {status: "4"}, 
+    {status: "5"}, 
+    {status: "6"}, 
+    {status: "7"}, 
+    {status: "8"}
+      ];
+};
 
 
 });
