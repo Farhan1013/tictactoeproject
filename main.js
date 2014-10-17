@@ -8,7 +8,7 @@
         {status: "0", cellStatus: false},
         {status: "1", cellStatus: false},
         {status: "2", cellStatus: false}, 
-        {status: "3", cellStatus: false}, 
+        {status: "3", cellStatus: false},   
         {status: "4", cellStatus: false}, 
         {status: "5", cellStatus: false}, 
         {status: "6", cellStatus: false}, 
@@ -18,8 +18,7 @@
 
 
     $scope.movecounter = 0 ;
-    $scope.xWinner= false;
-    $scope.oWinner= false;
+    $scope.Winner= false;
     $scope.gameEnd= false;
 
 
@@ -32,22 +31,18 @@
         console.log($scope.movecounter);
         
         if (($scope.movecounter % 2) == 1) { 
-          thisCell.status = "X";  
+          thisCell.status = "X"; 
         } 
         else {
           thisCell.status = "O" ; 
         } 
         console.log("Cell is now: " + thisCell.status);
 
-        if (thisCell.cellStatus == true ) {
+        if (thisCell.cellStatus = true ) {
         console.log("cell has been clicked");
-        return;
       }
 
-
-
         $scope.checkWinner($scope.cellList, thisCell.status);
-        // $scope.checkWinner($scope.cellList, "O");
       }
     };
 
@@ -74,23 +69,25 @@
           }
       }
 
+      //DIAGONAL WIN LOGIC
+
         for (var i = 0; i < 1; i++) {
           if (cellList[i].status === cellList[i+4].status &&
-            cellList[i+8].status== cellList[i].status) {
-            window.alert("winner");
-            if (xo == "X") {
-              $scope.xWinner = true;
+            cellList[i+8].status=== cellList[i].status) {
               $scope.gameEnd = true;
-              window.alert("winner player 1");
+              window.alert("winner player " + xo);
             } 
-            else {
-              $scope.oWinner = true;
-              $scope.gameEnd= true;
-              window.alert("winner player 2");
-
-            }
-          } 
         }
+
+
+        for (var i = 0; i < 1; i++) {
+          if (cellList[i+2].status === cellList[i+4].status &&
+            cellList[i+2].status=== cellList[i+6].status) {
+              $scope.gameEnd = true;
+              window.alert("winner player " + xo);
+        }
+
+      }
 
 
       if ($scope.movecounter===9 && $scope.gameEnd===false) { 
@@ -105,17 +102,18 @@
 
   $scope.testJS= function() {
     // $scope.gameEnd=false;
-    $scope.cellList = [
-        {status: "0"}, 
-        {status: "1"}, 
-        {status: "2"}, 
-        {status: "3"}, 
-        {status: "4"}, 
-        {status: "5"}, 
-        {status: "6"}, 
-        {status: "7"}, 
-        {status: "8"}
+      $scope.cellList = [
+        {status: "0", cellStatus: false},
+        {status: "1", cellStatus: false},
+        {status: "2", cellStatus: false}, 
+        {status: "3", cellStatus: false},   
+        {status: "4", cellStatus: false}, 
+        {status: "5", cellStatus: false}, 
+        {status: "6", cellStatus: false}, 
+        {status: "7", cellStatus: false}, 
+        {status: "8", cellStatus: false}
         ]  ;
+
 
     };
   
