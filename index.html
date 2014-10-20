@@ -1,37 +1,44 @@
 <!DOCTYPE html>
 <html ng-app="TTTApp">
 <head>
-    <title>TTT project 1</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js">
-    </script>
-    <script src="main.js"></script>
     <link rel="stylesheet" href="style.css">
-    <link href='http://fonts.googleapis.com/css?family=Nosifer' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Nosifer' rel='stylesheet' type='text/css'>
+    <title>TTT project 1</title>
+            <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.19/angular.min.js"></script>
+        <!-- Firebase -->
+    <script src="https://cdn.firebase.com/js/client/1.0.21/firebase.js"></script>
+        <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/0.6.0/angularfire.min.js"></script>
+        <!-- App javascript -->
+    <script src="main.js"></script>
+    <script src="lib/sweet-alert.js"></script>
+    <link rel="stylesheet"href="lib/sweet-alert.css">
+
 </head>
 
 <body>
     <audio controls autoplay>
-  <source src="AUDIO/Simpsons - Itchy & Scratchy Theme copy.mp3" type="audio/mp3">
+  <source src="AUDIO/Simpsons - Itchy & Scratchy Theme copy.mp3" type="audio/mp3"> -->
     </audio>
 
-    <h1>ITCHY VS. SCRATCHY</h1>
+    <h1>ITCHY VS. SCRATCHY</h1><br>
 
     <div ng-controller="TTTController">
-        <p>TTT Reference: Step 1</p>
-       {{movecounter}}
+        <button class="button" ng-click="testJS()">NEW GAME</button><br>
+       {{gameContainer.moveCounter}}
         
         <div class="theBox" >
-            <div ng-repeat="currentCell in cellList">
+            <div ng-repeat="currentCell in gameContainer.board">
                 <div class="allCellsAlways" ng-click="playerPicks(currentCell)"
-                ng-class="{xclass: currentCell.status=='X', oclass: currentCell.status =='O'}">
-             {{currentCell.status}}  
+                ng-class="{itchyclass: currentCell.status=='itchy', scratchyclass: currentCell.status =='scratchy'}">
+ 
             </div>
         </div>
     </div>
     <br>
  
     <p></p>
-    <button ng-click="testJS()">TEST BUTTON</button>
 </div>
 
 </body>

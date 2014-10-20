@@ -5,6 +5,7 @@
     border-color: gold;
     background: rgb(239, 209, 28);
     margin-left: 349px;
+    margin-bottom: 90px;
     opacity: .94;
 
 }
@@ -21,14 +22,18 @@
     
 }
 
-.xclass {
+.allCellsAlways:hover {
+    background-color: #64c194 ;
+}
+
+.scratchyclass {
     background: url("images/Scratchy2.png");
     background-size: 189px 189px;
     
 
 }
 
-.oclass {
+.itchyclass {
     background: url(images/Itchy2.png);
     background-size: 191px 191px;
 
@@ -43,8 +48,16 @@ body {
     background: url(images/dibujos-simpsons.jpg);
     text-align: center;
     background-position: center;
+    background-repeat: no-repeat;
+    background-color: green;
 
 }
+
+body {
+    background-color: rgb(239, 209, 28);
+}
+
+
 
 h1 {
     color: rgb(239, 47, 79);
@@ -53,11 +66,16 @@ h1 {
     font-size: 40px;
     text-shadow: 3px 2px black;
     font-style: strong;
+    margin-bottom: 8px;
 
 }
 
-button {
+.button {
+    color: #900;
+    font-weight: bold;
+    font-size: 250%;
+    text-transform: uppercase;
+    text-shadow: 1px 1px black;
 
-    color: red;
 
 }
