@@ -5,6 +5,11 @@
   $scope.remoteGameContainer =
   $firebase(new Firebase("https://itchyvsscratchy.firebaseio.com"));
 
+   $scope.options = {
+    playlist: ['AUDIO/Simpsons - Itchy & Scratchy Theme copy.mp3', 'AUDIO/Simpsons - Itchy & Scratchy Theme copy.mp3'],
+    loop: true};
+
+
     $scope.testString = "Angular sourceAppand Controller present" ;
 
       // this is the the an array of the boxes in the TTT board
@@ -24,7 +29,7 @@
     $scope.movecounter = 0 ;
     $scope.Winner= false;
     $scope.gameEnd= false;
-
+   
 
   //SPECIAL SAUCE HERE
       //varibales here are put inside the game container.
@@ -51,16 +56,16 @@
         console.log("Cell was: " + thisCell.status);
         console.log($scope.gameContainer.moveCounter);
 
-        // if the movecounter is odd it will be scratchy's turn
-        if (($scope.gameContainer.moveCounter % 2) == 1) { 
-          thisCell.status = "scratchy"; 
-        } 
-        //if the movecounter is even it will be itchys turn
-        else {
-          thisCell.status = "itchy" ; 
-        } 
+            // if the movecounter is odd it will be scratchy's turn
+            if (($scope.gameContainer.moveCounter % 2) == 1) { 
+              thisCell.status = "scratchy"; 
+            } 
+            //if the movecounter is even it will be itchys turn
+            else {
+              thisCell.status = "itchy" ; 
+            } 
         console.log("Cell is now: " + thisCell.status);
-
+        //cell status will change form false to true once clicked.
         if (thisCell.cellStatus = true ) {
         console.log("cell has been clicked");
         }
@@ -98,9 +103,7 @@
           }
       }
 
-      //DIAGONAL WIN LOGIC
-      //
-
+          //DIAGONAL WIN LOGIC
         for (var i = 0; i < 1; i++) {
           if (cellList[i].status === cellList[i+4].status &&
             cellList[i+8].status=== cellList[i].status) {

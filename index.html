@@ -1,45 +1,42 @@
 <!DOCTYPE html>
 <html ng-app="TTTApp">
-<head>
-    <link rel="stylesheet" href="style.css">
-    <link href='https://fonts.googleapis.com/css?family=Nosifer' rel='stylesheet' type='text/css'>
-    <title>TTT project 1</title>
-            <!-- AngularJS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.19/angular.min.js"></script>
-        <!-- Firebase -->
-    <script src="https://cdn.firebase.com/js/client/1.0.21/firebase.js"></script>
-        <!-- AngularFire -->
-    <script src="https://cdn.firebase.com/libs/angularfire/0.6.0/angularfire.min.js"></script>
-        <!-- App javascript -->
-    <script src="main.js"></script>
-    <script src="lib/sweet-alert.js"></script>
-    <link rel="stylesheet"href="lib/sweet-alert.css">
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <link href='https://fonts.googleapis.com/css?family=Nosifer' rel='stylesheet' type='text/css'>
+        <title>TTT project 1</title>
+                <!-- AngularJS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.19/angular.min.js"></script>
+            <!-- Firebase -->
+        <script src="https://cdn.firebase.com/js/client/1.0.21/firebase.js"></script>
+            <!-- AngularFire -->
+        <script src="https://cdn.firebase.com/libs/angularfire/0.6.0/angularfire.min.js"></script>
+            <!-- App javascript -->
+        <script src="main.js"></script>
+        <script src="lib/sweet-alert.js"></script>
+        <link rel="stylesheet"href="lib/sweet-alert.css">
+    </head>
+    <body>
+        <audio controls autoplay>
+            <source src="AUDIO/Simpsons - Itchy & Scratchy Theme copy.mp3" type="audio/mp3">
+        </audio>
 
-</head>
-
-<body>
-    <audio controls autoplay>
-  <source src="AUDIO/Simpsons - Itchy & Scratchy Theme copy.mp3" type="audio/mp3"> -->
-    </audio>
-
-    <h1>ITCHY VS. SCRATCHY</h1><br>
-
-    <div ng-controller="TTTController">
-        <button class="button" ng-click="testJS()">NEW GAME</button><br>
-       {{gameContainer.moveCounter}}
-        
-        <div class="theBox" >
-            <div ng-repeat="currentCell in gameContainer.board">
-                <div class="allCellsAlways" ng-click="playerPicks(currentCell)"
-                ng-class="{itchyclass: currentCell.status=='itchy', scratchyclass: currentCell.status =='scratchy'}">
- 
+        <h1>ITCHY VS. SCRATCHY</h1>
+        <br>
+        <div ng-controller="TTTController">
+             <div audio options="options" />
+        </div>
+            <button class="button" ng-click="testJS()">NEW GAME</button><br>
+           {{gameContainer.moveCounter}}
+        <div class= "container">
+            <div class="theBox" >
+                <div ng-repeat="currentCell in gameContainer.board">
+                    <div class="allCellsAlways" ng-click="playerPicks(currentCell)"
+                    ng-class="{itchyclass: currentCell.status=='itchy', scratchyclass: currentCell.status =='scratchy'}">
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <br>
- 
-    <p></p>
-</div>
-
-</body>
+        <br>
+        </div>
+    </body>
 </html>
