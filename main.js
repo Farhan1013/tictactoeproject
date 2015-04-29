@@ -81,7 +81,7 @@
     for (var i = 0; i < 3; i++) {
 
         //this does the rows
-        //depending on the index number of the row, it will pass a condtional to check the winning combinations of
+        //depending on the index number of the row (for loop only check first 3), it will pass a condtional to check the winning combinations of
         // all the rows
         if (cellList[i*3].status === cellList[i*3+1].status &&
         cellList[i*3+1].status === cellList[i*3+2].status &&
